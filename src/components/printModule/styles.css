@@ -12,7 +12,6 @@
 .date {
   font-size: 10px;
   font-weight: 900;
-  /* align-self: flex-end; */
 }
 
 .discription {
@@ -47,7 +46,18 @@ td {
   padding: 5px 0;
   font-size: 12px;
 }
+.montant {
+  font-size: 12px;
+}
 .footer {
   margin-top: 36%;
   text-align: center;
+}
+
+.datalist {
+  border: 0;
+  background-color: #fafafb;
+  font-size: 12px;
+  text-align: center;
+  width: 90%;
 }

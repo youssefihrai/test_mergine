@@ -27,7 +27,7 @@ export const RibtempoCreate = (props) => {
       });
   }, [dataProvider]);
 
-  let project_choices = fournisseurs.map(({ id, nom }) => ({
+  let fournisseur_choices = fournisseurs.map(({ id, nom }) => ({
     id: id,
     name: nom,
   }));
@@ -40,7 +40,7 @@ export const RibtempoCreate = (props) => {
         <AutocompleteInput
           label="Fournisseur"
           source="FournisseurId"
-          choices={project_choices}
+          choices={fournisseur_choices}
         />
         <TextInput source="rib" />
       </SimpleForm>
