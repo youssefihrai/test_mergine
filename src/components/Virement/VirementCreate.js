@@ -71,9 +71,6 @@ export const VirementCreate = () => {
     fetch("http://10.111.1.217:8080/ordervirementencours")
       .then((response) => response.json())
       .then((json) => setOrderVirement(json));
-    fetch("http://10.111.1.217:8080/fournisseursribvalid")
-      .then((response) => response.json())
-      .then((json) => setFournisseur(json));
     // fetch("http://10.111.1.217:8080/allfactures")
     //   .then((response) => response.json())
     //   .then((json) => setFacture(json));
@@ -112,6 +109,14 @@ export const VirementCreate = () => {
       });
     // console.log(facture);
   };
+  const getFournisseurFilteredByOv = (id) => {
+    fetch(
+      `http://10.111.1.217:8080/fournisseursribvalid?ordervirment={"id":"${id}"}`
+    )
+      .then((response) => response.json())
+      .then((json) => setFournisseur(json));
+  };
+
   let orderVirement_choices = orderVirement.map(({ id }) => ({
     id: id,
     name: id,
@@ -132,20 +137,21 @@ export const VirementCreate = () => {
     id: id,
     name: `${id} | ${DATEDOC.split("T")[0]} | ${nom} | ${NETAPAYER}`,
   }));
-  //!! bonjour
+
   const classes = useStyles();
   return (
     <Create>
       <SimpleForm>
         <SelectInput
           className={classes.autocomplete}
-          source="ordervirementid"
+          source="orderVirementId"
           onChange={(e) => {
             // console.log(e.target.value);
             if (e.target.value === "") {
               setOrderVirementField(true);
             } else {
               setOrderVirementField(false);
+              getFournisseurFilteredByOv(e.target.value);
             }
           }}
           choices={orderVirement_choices}
@@ -153,7 +159,7 @@ export const VirementCreate = () => {
         <AutocompleteInput
           disabled={orderVirementField}
           className={classes.autocomplete}
-          source="fournisseurid"
+          source="fournisseurId"
           choices={fournisseurs_choices}
           onChange={(e) => {
             setOnchangefournisseur(e);
@@ -176,7 +182,7 @@ export const VirementCreate = () => {
               setFournisseurRibField(false);
             }
           }}
-          source="ribfournisseurid"
+          source="ribFournisseurId"
           choices={ribfournisseurs_choices}
         />
         <AutocompleteArrayInput

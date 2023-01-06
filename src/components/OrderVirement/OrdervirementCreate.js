@@ -4,7 +4,6 @@ import { Create, SelectInput, SimpleForm, useDataProvider } from "react-admin";
 export const OrdervirementCreate = () => {
   const dataProvider = useDataProvider();
   const [ribAtner, setribAtner] = useState([]);
-
   useEffect(() => {
     dataProvider
       .getList("ribatner", {
@@ -14,6 +13,7 @@ export const OrdervirementCreate = () => {
       .then(({ data }) => {
         setribAtner(data);
       })
+
       .catch((error) => {
         console.log(error);
       });
@@ -23,6 +23,7 @@ export const OrdervirementCreate = () => {
     id: id,
     name: `(${nom}) ${rib}`,
   }));
+
   return (
     <Create>
       <SimpleForm>

@@ -32,13 +32,16 @@ import { OrdervirementCreate } from "./components/OrderVirement/OrdervirementCre
 import { RIBAtnerCreate } from "./components/RIBAtner/RIBAtnerCreate";
 import { FactureList } from "./components/Factures/FactureList";
 import { VirementCreate } from "./components/Virement/VirementCreate";
+import { VirementList } from "./components/Virement/VirementList";
+import { VirementEdit } from "./components/Virement/VirementEdit";
+import { LogfactureList } from "./components/logfacture/logfactureList";
 function App(props) {
   return (
     <Admin
       {...props}
       dataProvider={restProvider("http://10.111.1.217:8080")}
       authProvider={auth}
-      // layout={CustomLayout}
+      layout={CustomLayout}
     >
       <Resource name="fournisseurs" list={FournisseurList} icon={FaTruck} />
 
@@ -87,11 +90,13 @@ function App(props) {
       />
       <Resource
         name="virements"
-        list={ListGuesser}
-        edit={EditGuesser}
+        list={VirementList}
+        edit={VirementEdit}
         create={VirementCreate}
         icon={FaCreditCard}
       />
+
+      <Resource name="logfactures" list={LogfactureList} />
 
       <CustomRoutes>
         <Route path="/print" element={<PrintModule />} />

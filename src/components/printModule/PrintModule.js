@@ -1,24 +1,91 @@
-import React, { useRef } from "react";
-import { Button } from "react-admin";
-
-import ReactToPrint from "react-to-print";
-import ComponentToPrint from "./ComponentToPrint";
-
+import { Box } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
+// import withReactContent from "sweetalert2-react-content";
 const PrintModule = () => {
-  let componentRef = useRef();
-  return (
-    <>
-      <div>
-        {/* button to trigger printing of target component */}
-        <ReactToPrint
-          trigger={() => <Button>Print this out!</Button>}
-          content={() => componentRef}
-        />
+  const [orderVirement, setOrderVirement] = useState([
+    {
+      id: "null",
+      ribAtner: 0,
+      datecreation: "",
+      etat: "",
+    },
+  ]);
+  const [selctov, setSelctov] = useState();
+  // const MySwal = withReactContent(Swal);
+  useEffect(() => {
+    fetch("http://10.111.1.217:8080/ordervirementencours")
+      .then((response) => response.json())
+      .then((json) => setOrderVirement(json));
+  }, []);
 
-        {/* component to be printed */}
-        <ComponentToPrint ref={(el) => (componentRef = el)} />
-      </div>
-    </>
+  const showLoadingPdf = (json) => {
+    Swal.fire({
+      title: "Pdf est prêt",
+      text: `Path: ${json.path}`,
+      icon: "success",
+    });
+  };
+
+  return (
+    <Box component="span" display="flex" justifyContent="center" m={1}>
+      <form>
+        <select
+          onChange={(e) => {
+            // console.log(e.target.value);
+            setSelctov(e.target.value);
+          }}
+        >
+          <option value="">choix order de virement </option>
+          {orderVirement.map((order) => {
+            return (
+              <option value={order.id}>
+                {order.id} - {order.etat}
+              </option>
+            );
+          })}
+        </select>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+
+            Swal.fire({
+              title: "Preparation du pdf en cours",
+              html: "Merci de patienter",
+              timer: 600000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Quelque chose s'est mal passé!",
+                  // footer: '<a href="">Why do I have this issue?</a>',
+                });
+              }
+            });
+
+            console.log(selctov);
+            fetch(
+              `http://10.111.1.217:8080/oneordervirement?ordervirment={"id":"${selctov}"}`
+            )
+              .then((response) => response.json())
+              .then((json) => {
+                console.log(json);
+                showLoadingPdf(json);
+              });
+          }}
+        >
+          Submit
+        </button>
+      </form>
+    </Box>
   );
 };
 
