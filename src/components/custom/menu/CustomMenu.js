@@ -8,7 +8,7 @@ import {
   FaUser,
   FaPager,
   FaFileInvoice,
-  FaBlog,
+  FaRegListAlt,
 } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
 export const CustomMenu = (props) => (
@@ -34,18 +34,17 @@ export const CustomMenu = (props) => (
       primaryText="RIB Atner"
       leftIcon={<FaBuilding />}
     />
-    <Menu.Item to="/users" primaryText="Users" leftIcon={<FaUser />} />
+    <Menu.Item
+      to="/factures"
+      primaryText="Factures"
+      leftIcon={<FaFileInvoice />}
+    />
     <Menu.Item
       to="/ordervirement"
       primaryText="Order Virement"
       leftIcon={<FaPager />}
     />
 
-    <Menu.Item
-      to="/factures"
-      primaryText="Factures"
-      leftIcon={<FaFileInvoice />}
-    />
     <Menu.Item
       to="/virements"
       primaryText="Virements"
@@ -55,12 +54,13 @@ export const CustomMenu = (props) => (
     <Menu.Item
       to="/logfactures"
       primaryText="Log Factures"
-      leftIcon={<FaBlog />}
+      leftIcon={<FaRegListAlt />}
     />
     <Menu.Item
       to="/print"
       primaryText="Print Order Virement"
       leftIcon={<FaPrint />}
     />
+    <Menu.Item to="/users" primaryText="Users" leftIcon={<FaUser />} />
   </Menu>
 );

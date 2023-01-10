@@ -6,7 +6,7 @@ import FilterRIBTempo from "./FilterRIBTempo";
 export const RibtempoList = (props) => {
   return (
     <List filters={<FilterRIBTempo />}>
-      <Datagrid bulkActionButtons={false} {...props} rowClick="edit">
+      <Datagrid bulkActionButtons={false} {...props}>
         <TextField source="fournisseur" />
         <TextField source="rib" label="RIB" />
       </Datagrid>

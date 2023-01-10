@@ -1,9 +1,5 @@
 // import Dashboard from "./Admin/Dashboard";
-import {
-  Admin,
-  Resource,
-  CustomRoutes
-} from "react-admin";
+import { Admin, Resource, CustomRoutes } from "react-admin";
 // import { EditGuesser, ListGuesser } from "react-admin";
 import restProvider from "ra-data-simple-rest";
 import { FournisseurList } from "./components/Fournisseur/ListFournisseurs";
@@ -40,7 +36,6 @@ function App(props) {
       layout={CustomLayout}
     >
       <Resource name="fournisseurs" list={FournisseurList} icon={FaTruck} />
-
       <Resource
         name="ribtempo"
         list={RibtempoList}
@@ -48,26 +43,17 @@ function App(props) {
         // create={PostCreate}
         icon={FaCreditCard}
       />
-
       <Resource
         name="ribfournisseurs"
         list={RibfournisseurList}
         edit={RibfournisseurEdit}
         icon={FaCreditCard}
       />
-
       <Resource
         name="ribatner"
         list={RibatnerList}
         edit={RibatnerEdit}
         create={RIBAtnerCreate}
-        icon={FaCreditCard}
-      />
-      <Resource
-        name="users"
-        list={UserList}
-        edit={UserEdit}
-        create={UserCreate}
         icon={FaCreditCard}
       />
       <Resource
@@ -91,12 +77,17 @@ function App(props) {
         create={VirementCreate}
         icon={FaCreditCard}
       />
-
-      <Resource name="logfactures" list={LogfactureList} />
-
+      <Resource name="logfactures" list={LogfactureList} />,
       <CustomRoutes>
         <Route path="/print" element={<PrintModule />} />
       </CustomRoutes>
+      <Resource
+        name="users"
+        list={UserList}
+        edit={UserEdit}
+        create={UserCreate}
+        icon={FaCreditCard}
+      />
     </Admin>
   );
 }
