@@ -6,7 +6,6 @@ import {
   FaPrint,
   FaBuilding,
   FaUser,
-  FaPage4,
   FaPager,
   FaFileInvoice,
   FaBlog,

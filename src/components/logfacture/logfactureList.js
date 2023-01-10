@@ -2,7 +2,6 @@ import {
   Datagrid,
   List,
   NumberField,
-  ReferenceField,
   TextField,
 } from "react-admin";
 import FilterRLogFacture from "./FilterRLogFacture";
