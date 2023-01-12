@@ -15,7 +15,7 @@ const PrintModule = () => {
   const [selctov, setSelctov] = useState();
   // const MySwal = withReactContent(Swal);
   useEffect(() => {
-    fetch("http://10.111.1.217:8080/ordervirementetat")
+    fetch("http://10.111.1.92:8080/ordervirementetat")
       .then((response) => response.json())
       .then((json) => setOrderVirement(json));
   }, []);
