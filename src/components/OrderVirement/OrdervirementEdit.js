@@ -1,3 +1,4 @@
+import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import {
   Edit,
@@ -12,6 +13,15 @@ import {
   useRedirect,
 } from "react-admin";
 import Swal from "sweetalert2";
+
+const useStyles = makeStyles(() => ({
+  autocomplete: {
+    width: "650px",
+  },
+  chip: {
+    fontWeight: "bold",
+  },
+}));
 
 const UserEditToolbar = (props) => (
   <Toolbar {...props}>
@@ -90,23 +100,25 @@ export const OrdervirementEdit = (props) => {
       });
     }
   }
-
+  const classes = useStyles();
   return (
     <Edit {...props}>
       <SimpleForm toolbar={<UserEditToolbar />}>
-        <TextInput source="id" disabled />
+        <TextInput className={classes.autocomplete} source="id" disabled />
         <FormDataConsumer>
           {({ formData, ...rest }) =>
             formData.etat !== "Reglee" &&
             formData.etat !== "Annule" && (
               <>
                 <SelectInput
+                  className={classes.autocomplete}
                   source="ribAtner"
                   validate={required()}
                   choices={rib_choices}
                   {...rest}
                 />
                 <SelectInput
+                  className={classes.autocomplete}
                   validate={required()}
                   source="etat"
                   onChange={(e) => {

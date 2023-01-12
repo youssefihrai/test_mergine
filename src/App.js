@@ -1,6 +1,5 @@
 // import Dashboard from "./Admin/Dashboard";
 import { Admin, Resource, CustomRoutes } from "react-admin";
-// import { EditGuesser, ListGuesser } from "react-admin";
 import restProvider from "ra-data-simple-rest";
 import { FournisseurList } from "./components/Fournisseur/ListFournisseurs";
 import { FaTruck, FaCreditCard } from "react-icons/fa";
@@ -16,7 +15,6 @@ import { RibatnerEdit } from "./components/RIBAtner/RibatnerEdit";
 import { UserList } from "./components/user/UserList";
 import { UserEdit } from "./components/user/UserEdit";
 import { UserCreate } from "./components/user/UserCreate";
-// import { PostCreate } from "./components/Virement/CreateVirement";
 import { auth } from "./authProvider";
 import { OrdervirementEdit } from "./components/OrderVirement/OrdervirementEdit";
 import { OrdervirementList } from "./components/OrderVirement/OrdervirementList";
@@ -35,59 +33,81 @@ function App(props) {
       authProvider={auth}
       layout={CustomLayout}
     >
-      <Resource name="fournisseurs" list={FournisseurList} icon={FaTruck} />
-      <Resource
-        name="ribtempo"
-        list={RibtempoList}
-        create={RibtempoCreate}
-        // create={PostCreate}
-        icon={FaCreditCard}
-      />
-      <Resource
-        name="ribfournisseurs"
-        list={RibfournisseurList}
-        edit={RibfournisseurEdit}
-        icon={FaCreditCard}
-      />
-      <Resource
-        name="ribatner"
-        list={RibatnerList}
-        edit={RibatnerEdit}
-        create={RIBAtnerCreate}
-        icon={FaCreditCard}
-      />
-      <Resource
-        name="ordervirement"
-        list={OrdervirementList}
-        edit={OrdervirementEdit}
-        create={OrdervirementCreate}
-        icon={FaCreditCard}
-      />
-      <Resource
-        name="factures"
-        list={FactureList}
-        // edit={EditGuesser}
-        // create={OrdervirementCreate}
-        icon={FaCreditCard}
-      />
-      <Resource
-        name="virements"
-        list={VirementList}
-        edit={VirementEdit}
-        create={VirementCreate}
-        icon={FaCreditCard}
-      />
-      <Resource name="logfactures" list={LogfactureList} />,
-      <CustomRoutes>
-        <Route path="/print" element={<PrintModule />} />
-      </CustomRoutes>
-      <Resource
-        name="users"
-        list={UserList}
-        edit={UserEdit}
-        create={UserCreate}
-        icon={FaCreditCard}
-      />
+      {(permissions) => [
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource name="fournisseurs" list={FournisseurList} icon={FaTruck} />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource
+            name="ribfournisseurs"
+            list={RibfournisseurList}
+            edit={RibfournisseurEdit}
+            icon={FaCreditCard}
+          />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource
+            name="ribatner"
+            list={RibatnerList}
+            edit={RibatnerEdit}
+            create={RIBAtnerCreate}
+            icon={FaCreditCard}
+          />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource
+            name="ribtempo"
+            list={RibtempoList}
+            // edit={RibatnerEdit}
+            create={RibtempoCreate}
+            icon={FaCreditCard}
+          />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource
+            name="ordervirement"
+            list={OrdervirementList}
+            edit={OrdervirementEdit}
+            create={OrdervirementCreate}
+            icon={FaCreditCard}
+          />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource
+            name="factures"
+            list={FactureList}
+            // edit={EditGuesser}
+            // create={OrdervirementCreate}
+            icon={FaCreditCard}
+          />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource
+            name="virements"
+            list={VirementList}
+            edit={VirementEdit}
+            create={VirementCreate}
+            icon={FaCreditCard}
+          />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <Resource name="logfactures" list={LogfactureList} />
+        ) : null,
+        permissions === "admin" || permissions === "normal user" ? (
+          <CustomRoutes>
+            <Route path="/print" element={<PrintModule />} />
+          </CustomRoutes>
+        ) : null,
+        permissions === "admin" ? (
+          <Resource
+            name="users"
+            list={UserList}
+            edit={UserEdit}
+            create={UserCreate}
+            icon={FaCreditCard}
+          />
+        ) : null,
+      ]}
     </Admin>
   );
 }

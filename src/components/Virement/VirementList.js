@@ -1,8 +1,9 @@
 import { Datagrid, List, NumberField, TextField } from "react-admin";
+import VirmentFilter from "./VirmentFilter";
 
 export const VirementList = () => {
   return (
-    <List>
+    <List filters={<VirmentFilter />}>
       <Datagrid rowClick="edit">
         {/* <TextField source="id" /> */}
         <TextField source="orderVirementId" />

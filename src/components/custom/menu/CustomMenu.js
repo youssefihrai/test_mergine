@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Menu } from "react-admin";
+import { Menu, usePermissions } from "react-admin";
 import {
   FaTruck,
   FaCreditCard,
@@ -11,56 +11,78 @@ import {
   FaRegListAlt,
 } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
-export const CustomMenu = (props) => (
-  <Menu {...props}>
-    {/* <Menu.DashboardItem /> */}
-    <Menu.Item
-      to="/fournisseurs"
-      primaryText="Fournisseurs"
-      leftIcon={<FaTruck />}
-    />
-    <Menu.Item
-      to="/ribtempo"
-      primaryText="RIB Temporaire"
-      leftIcon={<FaCreditCard />}
-    />
-    <Menu.Item
-      to="/ribfournisseurs"
-      primaryText="RIB Validé"
-      leftIcon={<FaCreditCard />}
-    />
-    <Menu.Item
-      to="/ribatner"
-      primaryText="RIB Atner"
-      leftIcon={<FaBuilding />}
-    />
-    <Menu.Item
-      to="/factures"
-      primaryText="Factures"
-      leftIcon={<FaFileInvoice />}
-    />
-    <Menu.Item
-      to="/ordervirement"
-      primaryText="Order Virement"
-      leftIcon={<FaPager />}
-    />
 
-    <Menu.Item
-      to="/virements"
-      primaryText="Virements"
-      leftIcon={<MdPayments />}
-    />
+export const CustomMenu = (props) => {
+  const { permissions } = usePermissions();
 
-    <Menu.Item
-      to="/logfactures"
-      primaryText="Log Factures"
-      leftIcon={<FaRegListAlt />}
-    />
-    <Menu.Item
-      to="/print"
-      primaryText="Print Order Virement"
-      leftIcon={<FaPrint />}
-    />
-    <Menu.Item to="/users" primaryText="Users" leftIcon={<FaUser />} />
-  </Menu>
-);
+  return (
+    <Menu {...props}>
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/fournisseurs"
+          primaryText="Fournisseurs"
+          leftIcon={<FaTruck />}
+        />
+      )}
+
+      <Menu.Item
+        to="/ribtempo"
+        primaryText="RIB Temporaire"
+        leftIcon={<FaCreditCard />}
+      />
+
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/ribfournisseurs"
+          primaryText="RIB Validé"
+          leftIcon={<FaCreditCard />}
+        />
+      )}
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/ribatner"
+          primaryText="RIB Atner"
+          leftIcon={<FaBuilding />}
+        />
+      )}
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/factures"
+          primaryText="Factures"
+          leftIcon={<FaFileInvoice />}
+        />
+      )}
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/ordervirement"
+          primaryText="Order Virement"
+          leftIcon={<FaPager />}
+        />
+      )}
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/virements"
+          primaryText="Virements"
+          leftIcon={<MdPayments />}
+        />
+      )}
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/logfactures"
+          primaryText="Log Factures"
+          leftIcon={<FaRegListAlt />}
+        />
+      )}
+      {(permissions === "admin" || permissions === "normal user") && (
+        <Menu.Item
+          to="/print"
+          primaryText="Print Order Virement"
+          leftIcon={<FaPrint />}
+        />
+      )}
+      {permissions === "admin" && (
+        <Menu.Item to="/users" primaryText="Users" leftIcon={<FaUser />} />
+      )}
+    </Menu>
+  );
+};

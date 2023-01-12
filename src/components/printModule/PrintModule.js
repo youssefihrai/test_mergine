@@ -15,7 +15,7 @@ const PrintModule = () => {
   const [selctov, setSelctov] = useState();
   // const MySwal = withReactContent(Swal);
   useEffect(() => {
-    fetch("http://10.111.1.217:8080/ordervirementetat")
+    fetch("http://10.111.1.92:8080/ordervirementetat")
       .then((response) => response.json())
       .then((json) => setOrderVirement(json));
   }, []);
@@ -32,12 +32,15 @@ const PrintModule = () => {
     <Box component="span" display="flex" justifyContent="center" m={1}>
       <form>
         <select
+          required="required"
           onChange={(e) => {
-            // console.log(e.target.value);
+            console.log(e.target.value);
             setSelctov(e.target.value);
           }}
         >
-          <option value="">choix order de virement </option>
+          <option disabled="disabled" selected={true} value="">
+            choix order de virement{" "}
+          </option>
           {orderVirement.map((order) => {
             return (
               <option value={order.id}>

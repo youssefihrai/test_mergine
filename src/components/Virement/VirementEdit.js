@@ -1,3 +1,4 @@
+import { makeStyles } from "@material-ui/core";
 import {
   Edit,
   FormDataConsumer,
@@ -11,6 +12,15 @@ import {
   useRedirect,
 } from "react-admin";
 import Swal from "sweetalert2";
+
+const useStyles = makeStyles(() => ({
+  autocomplete: {
+    width: "650px",
+  },
+  chip: {
+    fontWeight: "bold",
+  },
+}));
 
 const UserEditToolbar = (props) => (
   <Toolbar {...props}>
@@ -46,14 +56,22 @@ export const VirementEdit = (props) => {
       });
     }
   }
-
+  const classes = useStyles();
   return (
     <Edit {...props}>
       <SimpleForm toolbar={<UserEditToolbar />}>
-        <TextInput source="orderVirementId" disabled />
-        <TextInput source="nom" disabled />
-        <TextInput source="rib" disabled />
-        <NumberInput source="montantVirement" disabled />
+        <TextInput
+          className={classes.autocomplete}
+          source="orderVirementId"
+          disabled
+        />
+        <TextInput className={classes.autocomplete} source="nom" disabled />
+        <TextInput className={classes.autocomplete} source="rib" disabled />
+        <NumberInput
+          className={classes.autocomplete}
+          source="montantVirement"
+          disabled
+        />
         <FormDataConsumer>
           {({ formData, ...rest }) =>
             formData.Etat !== "Reglee" &&
@@ -62,6 +80,7 @@ export const VirementEdit = (props) => {
                 // disabled={etatDisaibled}
                 {...rest}
                 source="Etat"
+                className={classes.autocomplete}
                 onChange={(e) => {
                   console.log(e.target.value);
                   annuleAlert(e.target.value);

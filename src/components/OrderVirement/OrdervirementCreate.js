@@ -1,5 +1,21 @@
+import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { Create, SelectInput, SimpleForm, useDataProvider } from "react-admin";
+import {
+  Create,
+  required,
+  SelectInput,
+  SimpleForm,
+  useDataProvider,
+} from "react-admin";
+
+const useStyles = makeStyles(() => ({
+  autocomplete: {
+    width: "650px",
+  },
+  chip: {
+    fontWeight: "bold",
+  },
+}));
 
 export const OrdervirementCreate = () => {
   const dataProvider = useDataProvider();
@@ -23,11 +39,16 @@ export const OrdervirementCreate = () => {
     id: id,
     name: `(${nom}) ${rib}`,
   }));
-
+  const classes = useStyles();
   return (
     <Create>
       <SimpleForm>
-        <SelectInput source="ribAtner" choices={rib_choices} />
+        <SelectInput
+          className={classes.autocomplete}
+          validate={required("Le RIB est obligatoire")}
+          source="ribAtner"
+          choices={rib_choices}
+        />
       </SimpleForm>
     </Create>
   );

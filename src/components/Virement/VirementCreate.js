@@ -3,6 +3,7 @@ import {
   AutocompleteArrayInput,
   AutocompleteInput,
   Create,
+  required,
   SelectInput,
   SimpleForm,
 } from "react-admin";
@@ -68,12 +69,9 @@ export const VirementCreate = () => {
   const [onchangefournisseur, setOnchangefournisseur] = useState([]);
 
   useEffect(() => {
-    fetch("http://10.111.1.217:8080/ordervirementencours")
+    fetch("http://10.111.1.92:8080/ordervirementencours")
       .then((response) => response.json())
       .then((json) => setOrderVirement(json));
-    // fetch("http://10.111.1.217:8080/allfactures")
-    //   .then((response) => response.json())
-    //   .then((json) => setFacture(json));
   }, []);
 
   // const ribf = useRef([0]);
@@ -99,7 +97,7 @@ export const VirementCreate = () => {
   }, [onchangefournisseur, fournisseur]);
 
   const getFactureByFourniseurId = (id) => {
-    let url = "http://10.111.1.217:8080/getfacturebyfournisseurid/" + id;
+    let url = "http://10.111.1.92:8080/getfacturebyfournisseurid/" + id;
     // console.log(url);
     fetch(url)
       .then((response) => response.json())
@@ -111,7 +109,7 @@ export const VirementCreate = () => {
   };
   const getFournisseurFilteredByOv = (id) => {
     fetch(
-      `http://10.111.1.217:8080/fournisseursribvalid?ordervirment={"id":"${id}"}`
+      `http://10.111.1.92:8080/fournisseursribvalid?ordervirment={"id":"${id}"}`
     )
       .then((response) => response.json())
       .then((json) => setFournisseur(json));
@@ -143,6 +141,7 @@ export const VirementCreate = () => {
     <Create>
       <SimpleForm>
         <SelectInput
+          validate={required("Ce champ est obligatoire")}
           className={classes.autocomplete}
           source="orderVirementId"
           onChange={(e) => {
@@ -157,6 +156,7 @@ export const VirementCreate = () => {
           choices={orderVirement_choices}
         />
         <AutocompleteInput
+          validate={required("Ce champ est obligatoire")}
           disabled={orderVirementField}
           className={classes.autocomplete}
           source="fournisseurId"
@@ -173,6 +173,7 @@ export const VirementCreate = () => {
           }}
         />
         <SelectInput
+          validate={required("Ce champ est obligatoire")}
           disabled={fournisseurIdField}
           className={classes.autocomplete}
           onChange={(e) => {
@@ -186,6 +187,7 @@ export const VirementCreate = () => {
           choices={ribfournisseurs_choices}
         />
         <AutocompleteArrayInput
+          validate={required("Ce champ est obligatoire")}
           disabled={fournisseurRibField}
           className={classes.autocomplete}
           source="facturelist"
