@@ -76,7 +76,7 @@ const PrintModule = () => {
 
             console.log(selctov);
             fetch(
-              `http://10.111.1.217:8080/oneordervirement?ordervirment={"id":"${selctov}"}`
+              `http://10.111.1.92:8080/oneordervirement?ordervirment={"id":"${selctov}"}`
             )
               .then((response) => response.json())
               .then((json) => {
