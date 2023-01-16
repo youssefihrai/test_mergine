@@ -4,7 +4,7 @@ import VirmentFilter from "./VirmentFilter";
 export const VirementList = () => {
   return (
     <List filters={<VirmentFilter />}>
-      <Datagrid rowClick="edit">
+      <Datagrid rowClick="edit" bulkActionButtons={false}>
         {/* <TextField source="id" /> */}
         <TextField source="orderVirementId" />
         <TextField source="nom" />
