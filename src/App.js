@@ -25,6 +25,7 @@ import { VirementCreate } from "./components/Virement/VirementCreate";
 import { VirementList } from "./components/Virement/VirementList";
 import { VirementEdit } from "./components/Virement/VirementEdit";
 import { LogfactureList } from "./components/logfacture/logfactureList";
+import CreateFournisseur from "./components/Fournisseur/CreateFournisseur";
 function App(props) {
   return (
     <Admin
@@ -35,7 +36,12 @@ function App(props) {
     >
       {(permissions) => [
         permissions === "admin" || permissions === "normal user" ? (
-          <Resource name="fournisseurs" list={FournisseurList} icon={FaTruck} />
+          <Resource
+            name="fournisseurs"
+            list={FournisseurList}
+            create={permissions === "admin" ? CreateFournisseur : null}
+            icon={FaTruck}
+          />
         ) : null,
         permissions === "admin" || permissions === "normal user" ? (
           <Resource
