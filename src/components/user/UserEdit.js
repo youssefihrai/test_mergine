@@ -13,13 +13,21 @@ export const UserEdit = () => (
       <TextInput source="username" />
       {/* <TextInput source="Role" /> */}
       <SelectInput
-        source="Role"
+        source="role"
+        
         choices={[
-          { id: "admin", name: "Admin" },
-          { id: "normal user", name: "normal user" },
-          //   { id: "photography", name: "Photography" },
+        { id: "superAdmin", name: "superAdmin" },  
+       { id: "comptable midelt", name: "comptable midelt" },
+       { id: "superviseur comptabilite midelt", name: "superviseur comptabilite midelt" },
         ]}
       />
+
+
+      
+      
+      
+      
+      
       {/* <TextInput source="password" /> */}
       <SelectInput
         source="isActivated"

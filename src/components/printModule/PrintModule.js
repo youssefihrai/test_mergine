@@ -15,7 +15,7 @@ const PrintModule = () => {
   const [selctov, setSelctov] = useState();
   // const MySwal = withReactContent(Swal);
   useEffect(() => {
-    fetch("http://10.111.1.95:8080/ordervirementetat")
+    fetch("http://localhost:8080/ordervirementetat")
       .then((response) => response.json())
       .then((json) => setOrderVirement(json));
   }, []);
@@ -63,20 +63,20 @@ const PrintModule = () => {
                 Swal.showLoading();
               },
             }).then((result) => {
-              /* Read more about handling dismissals below */
+           
               if (result.dismiss === Swal.DismissReason.timer) {
                 Swal.fire({
                   icon: "error",
                   title: "Oops...",
                   text: "Quelque chose s'est mal passé!",
-                  // footer: '<a href="">Why do I have this issue?</a>',
+               
                 });
               }
             });
 
             console.log(selctov);
             fetch(
-              `http://10.111.1.95:8080/oneordervirement?ordervirment={"id":"${selctov}"}`
+              `http://localhost:8080/oneordervirement?ordervirment={"id":"${selctov}"}`
             )
               .then((response) => response.json())
               .then((json) => {

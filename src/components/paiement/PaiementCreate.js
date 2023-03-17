@@ -19,7 +19,14 @@ const useStyles = makeStyles(() => ({
     fontWeight: "bold",
   },
 }));
-export const VirementCreate = () => {
+export const PaiementCreate = () => {
+  
+  
+  function formatDate(string) {
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(string).toLocaleDateString([], options);
+  }
+  
   const [orderVirement, setOrderVirement] = useState([
     {
       id: "null",
@@ -68,11 +75,7 @@ export const VirementCreate = () => {
       .then((response) => response.json())
       .then((json) => setOrderVirement(json));
   }, []);
-
-  // const ribf = useRef([0]);
-
   useEffect(() => {
-    // console.log("after use effect", fournisseur);
     if (onchangefournisseur > 0) {
       setRibFournisseur(
         fournisseur.filter((fournisseur) => {
@@ -88,7 +91,7 @@ export const VirementCreate = () => {
   }, [onchangefournisseur, fournisseur]);
 
   const getFactureByFourniseurId = (id) => {
-    let url = "http://localhost:8080/getfacturebyfournisseurid/" + id;
+    let url = "http://localhost:8080/getfacturebyfournisseur/" + id;
     // console.log(url);
     fetch(url)
       .then((response) => response.json())
@@ -124,16 +127,25 @@ export const VirementCreate = () => {
 
   let facture_choices = facture.map(({ id,TTC,DateFacture,numeroFacture  }) => ({
     id: id,
-    name: `${numeroFacture} |  ${DateFacture.split("T")[0]} | ${TTC} `,
+    name: `${numeroFacture} | ${formatDate(DateFacture)} | ${TTC} `,
     
   }));
-  
 
 
   const classes = useStyles();
   return (
     <Create>
       <SimpleForm>
+       
+      <SelectInput
+        source="directeursigne"  
+        choices={[
+          { id: "Youness ZAMANI", name: "Youness ZAMANI" },
+          { id: "Mohamed ZAMANI", name: "Mohamed ZAMANI" }
+        
+        ]}
+      />
+       
         <SelectInput
           validate={required("Ce champ est obligatoire")}
           className={classes.autocomplete}
@@ -192,11 +204,13 @@ export const VirementCreate = () => {
               sum += facture.find((facture) => facture.id === fa).TTC;
               console.log(fa)
             });
-            // console.log(sum.toFixed(3));
+
             setSum(sum.toFixed(3));
           }}
         />
         <Chip className={classes.chip} label={`Total : ${sum}`} />
+
+  
       </SimpleForm>
     </Create>
   );
